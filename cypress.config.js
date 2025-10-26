@@ -3,11 +3,7 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   env: {
     db: {
-      host: "sql12.freesqldatabase.com",
-      user: "sql12804485",
-      password: "CSR6jv9wDv",
-      database: "sql12804485",
-      port: "3306"
+      ${{secrets.SQL_DATA}}
     },
   },
   e2e: {
