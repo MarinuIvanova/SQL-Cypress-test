@@ -22,6 +22,26 @@ describe("connect to test db", () => {
     });
   });
 
+  it("insert some students", ()=>{
+    cy.task("queryDb",
+      `INSERT INTO Students (StudentID, FirstName, StudentGroup, City) Values
+      (4, "Marina", "04-2025", "Russia"),
+      (5, "Irina", "04-2025", "Russia")`
+    ).then((result) => {
+      cy.log(JSON.stringify(result));
+      expect(result.affectedRows).to.equal(2);
+    });
+  })
+
+  it("select group 04-2025", ()=>{
+    cy.task("queryDb",
+      `SELECT FirstName FROM Students WHERE StudentGroup="04-2025"`
+    ).then((result) => {
+      cy.log(JSON.stringify(result));
+      //expect(result[0].FirstName).to.equal("Peter");
+    });
+  })
+
   it("select", () => {
     cy.task(
       "queryDb",
@@ -32,7 +52,7 @@ describe("connect to test db", () => {
     });
   });
 
-  it("delete the db", () => {
+  it.skip("delete the db", () => {
     cy.task("queryDb", "DROP TABLE Students");
   });
 });
